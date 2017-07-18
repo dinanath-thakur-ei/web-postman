@@ -36,8 +36,13 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
             .input-xs {height: 22px; padding: 2px 5px; font-size: 12px; line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */ border-radius: 3px; }
 
             .panel-actions {margin-top: -20px; margin-bottom: 0; text-align: right; }
-            .panel-actions a {color:#333; } 
+            .panel-actions a {color:#333; }
             .panel-fullscreen {display: block; z-index: 9999; position: fixed; width: 100%; height: 100%; top: 0; right: 0; left: 0; bottom: 0; overflow: auto; }
+            /*.panel-fullscreen .panel-body{height: 85%; }*/
+            .response-fullscreen{
+                height: 560px !important;
+                max-height: 560px !important;
+            }
         </style>
     </head>
     <body>
@@ -50,14 +55,14 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
                             <select name="microservice" class="form-control select-microservice" required="">
                                 <option value="">Select microservice...</option>
                                 <?php
-                                if (!empty($allMicroservices)) {
-                                    foreach ($allMicroservices as $key => $value) {
-                                        ?>
+if (!empty($allMicroservices)) {
+    foreach ($allMicroservices as $key => $value) {
+        ?>
                                         <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
                                         <?php
-                                    }
-                                }
-                                ?>
+}
+}
+?>
                             </select>
                         </div>
                     </div>
@@ -99,7 +104,7 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
                                             </ul>
                                         </div>
                                         <div class="panel-body">
-                                            <div class="col-md-5" style="padding: 0px !important" id="input-fields-main-container">
+                                            <div class="col-md-4" style="padding: 0px !important" id="input-fields-main-container">
                                                 <table class="table table-bordered" id="input-fields-table">
                                                     <thead>
                                                         <tr style="text-align:left">
@@ -116,7 +121,7 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
                                                     </button>
                                                 </center>
                                             </div>
-                                            <div class="col-md-7" id="api-reponse-container">
+                                            <div class="col-md-8" id="api-reponse-container">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
                                                         Response
@@ -486,6 +491,12 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
                         $this.children('i').addClass('glyphicon-resize-full');
                     }
                     $(this).closest('.panel').toggleClass('panel-fullscreen');
+                    $('#api-reponse-body').toggleClass('response-fullscreen');
+
+                    $('.response-fullscreen').css({'height':($('.panel-fullscreen').height()-160)+'px !important','max-height':($('.panel-fullscreen').height()-160)+'px !important'});
+                    console.log({'height':($('.panel-fullscreen').height()-160)+'px !important','max-height':($('.panel-fullscreen').height()-160)+'px !important'});
+
+                    console.log($('.panel-fullscreen').height());
                 });
             });
 
