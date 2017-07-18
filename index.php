@@ -30,10 +30,14 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
             #api-test-container tbody {display:block; max-height:340px; overflow-y:scroll; }
             #api-reponse-container .panel-default{margin-bottom: 0px !important; }
             .panel-body{padding: 5px !important; }
-            #api-reponse-body{overflow-y: scroll; /*overflow-x: hidden;*/ max-height: 350px; height: 350px; }
+            #api-reponse-body{overflow-y: scroll; /*overflow-x: hidden;*/ max-height: 350px; height: 500px; }
             pre {outline: 1px solid #ccc; padding: 5px;} .string { color: green; } .number { color: darkorange; } .boolean,.text-blue { color: blue; } .null { color: magenta; }
             .key { color: red; }
             .input-xs {height: 22px; padding: 2px 5px; font-size: 12px; line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */ border-radius: 3px; }
+
+            .panel-actions {margin-top: -20px; margin-bottom: 0; text-align: right; }
+            .panel-actions a {color:#333; } 
+            .panel-fullscreen {display: block; z-index: 9999; position: fixed; width: 100%; height: 100%; top: 0; right: 0; left: 0; bottom: 0; overflow: auto; }
         </style>
     </head>
     <body>
@@ -88,7 +92,12 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
                             <div class="col-md-8 hide" id="api-test-container">
                                 <form class="form-horizontal" id="test-api-form" method="post">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading"id="panel-heading"></div>
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title" id="panel-heading"></h3>
+                                            <ul class="list-inline panel-actions">
+                                                <li><a href="javascript:;" id="panel-fullscreen" role="button" title="Toggle fullscreen"><i class="glyphicon glyphicon-resize-full"></i></a></li>
+                                            </ul>
+                                        </div>
                                         <div class="panel-body">
                                             <div class="col-md-5" style="padding: 0px !important" id="input-fields-main-container">
                                                 <table class="table table-bordered" id="input-fields-table">
@@ -459,6 +468,24 @@ $allMicroservices = executeCurl(API_BASE_URL . 'Mindspark/Creator/GetMicroservic
                         obj.addClass('hideList').text('Hide api list');
                     }
 
+                });
+
+                //Toggle fullscreen
+                $("#panel-fullscreen").click(function (e) {
+                    e.preventDefault();
+
+                    var $this = $(this);
+
+                    if ($this.children('i').hasClass('glyphicon-resize-full'))
+                    {
+                        $this.children('i').removeClass('glyphicon-resize-full');
+                        $this.children('i').addClass('glyphicon-resize-small');
+                    } else if ($this.children('i').hasClass('glyphicon-resize-small'))
+                    {
+                        $this.children('i').removeClass('glyphicon-resize-small');
+                        $this.children('i').addClass('glyphicon-resize-full');
+                    }
+                    $(this).closest('.panel').toggleClass('panel-fullscreen');
                 });
             });
 
